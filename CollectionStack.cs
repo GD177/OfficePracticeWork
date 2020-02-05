@@ -56,19 +56,28 @@ namespace My_Test_App_For_GoAir
         public void dictionaryExCountArray()
         {
             Dictionary<int, int> countArray = new Dictionary<int, int>();
+            Dictionary<int, int> countArray1 = new Dictionary<int, int>();
+            Dictionary<int, string> dic = new Dictionary<int, string>();
 
-            Dictionary<int, string> dik = new Dictionary<int, string>();
+            string testString = "uuudddduddd";
+            for (int i = 0; i < testString.Length; i++)
+                Console.WriteLine(testString[i]);
 
             int[] ared = new int[4];
 
             int[] arr = { 1, 2, 1, 2, 1, 4, 5, 6, 78, 1, 2, 2 };
 
-            for(int i =0; i < arr.Length; i++)
+            for(int i = 0; i < arr.Length; i++)
             {
                 if (!countArray.ContainsKey(arr[i]))
                     countArray[arr[i]] = 0;
 
-                countArray[arr[i]]+= 1;
+                countArray[arr[i]] += 1;
+
+                if (!countArray1.ContainsKey(arr[i]))
+                    countArray1[arr[i]] = 1;
+                else
+                    countArray1[arr[i]]++;
             }
 
             foreach(KeyValuePair<int, int> freq in countArray)
@@ -239,6 +248,148 @@ namespace My_Test_App_For_GoAir
         
         //int[] b = new int[3];
         //Array.Copy(a, 1, b, 0, 3);
+        }
+
+        public static int jumpingOnClouds(int[] c)
+        {
+            int len = c.Length - 1;
+            int j = 0;
+            int jumps = 0;
+            while (j < len)
+            {
+                if(j + 2 <= len & c[j+2]==0)
+                {
+                    jumps++;
+                    j += 2;
+                }
+                else
+                {
+                    jumps++;
+                    j += 1;
+                }
+            }
+
+            return jumps;
+            //return helpeJump(c, 0, 0);
+        }
+
+        public static int helpeJump(int[] arr, int currpos, int jumps)
+        {
+            if (currpos == arr.Length - 1)
+                return jumps;
+
+
+            for (int i = currpos; i < arr.Length;)
+            {
+                if (arr[i + 2] == 0)
+                    helpeJump(arr, i + 2, jumps + 1);
+                else
+                    helpeJump(arr, i + 1, jumps + 1);
+            }
+            
+            return jumps;
+        }
+
+        public static long repeatedString(string s, long n)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return 0;
+
+            long charCount = 0;
+            int strLen = s.Length;
+
+            if (strLen == 1 && s == "a")
+                return n;
+
+            //long diff = 0;
+            //long sum = 0;
+            //long addCount = 0;
+            long mulcount = 1;
+            long rem = 0;
+            //string newString = string.Empty;
+            
+            if (n > strLen)
+            {
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (s[i] == 'a')
+                        charCount++;
+                }
+
+                mulcount = n / strLen;
+
+                charCount *= mulcount;
+
+                rem = n % strLen;
+
+                for (int j = 0; j < rem; j++)
+                {
+                    if (s[j] == 'a')
+                        charCount++;
+                }
+
+                return charCount;
+                //while (sum < n)
+                //{
+                //    sum += strLen;
+                //}
+
+                //sum -= strLen;
+
+                //addCount = sum / strLen;
+
+                //while(addCount!=0)
+                //{
+                //    newString += s;
+                //    addCount--;
+                //}
+
+                //diff = n - sum;
+
+                //for (int j = 0; j < diff; j++)
+                //    newString += s[j];
+
+                //int ans = s.Count('a');
+            }
+            
+            for(int i = 0; i < n; i++)
+            {
+                if (s[i] == 'a')
+                    charCount++;
+            }
+
+            return charCount;
+        }
+
+        public static int minimumSwaps(int[] arr)
+        {
+            int swapCount = 0;
+            Stack<int> s = new Stack<int>();
+            s.Push(arr[0]);
+
+            int counter = 1;
+
+            while(s.Count != arr.Length && counter < arr.Length)
+            {
+                if(s.Count == 0)
+                {
+                    s.Push(arr[0]);
+                    counter++;
+                }
+                
+                if (s.Peek() < arr[counter])
+                    s.Push(arr[counter++]);
+                else
+                {
+                    int num = s.Pop();
+                    int temp = arr[counter];
+                    arr[--counter] = temp;
+                    arr[counter + 1] = num;
+                    swapCount++;
+                }
+            }
+
+            return swapCount;
         }
     }
 }

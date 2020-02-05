@@ -116,14 +116,14 @@ namespace My_Test_App_For_GoAir
                 //string key2 = Console.ReadLine();
                 //ThreadStaticAttribute thread = new ThreadStaticAttribute();
 
-                //CollectionStack collectionStack = new CollectionStack();
+                CollectionStack collectionStack = new CollectionStack();
                 //MyCollectionStack();
                 //NextGreaterElement();
                 //printpairs(16);
                 //removeDuplicatesfromStringUsingStack();
                 //collectionStack.firstNonRepeating();
                 //StringBuilder resString = collectionStack.RemoveDuplicate();
-                //collectionStack.dictionaryExCountArray();
+                collectionStack.dictionaryExCountArray();
                 //Console.WriteLine("String is : " + resString);
                 #endregion
 
@@ -277,10 +277,61 @@ namespace My_Test_App_For_GoAir
                 //List<int> vs = new List<int>();
 
                 //int ans = NumWays("123");
-                int z = RomanToInt("MCMXCIV");
-                int  x = LengthOfLongestSubstring("au");
-                Stack<char> s = new Stack<char>();
-                
+                //int z = RomanToInt("MCMXCIV");
+                //int  x = LengthOfLongestSubstring("au");
+                //Stack<char> s = new Stack<char>();
+                //1,2,6,3,4,5,6
+                ListNode listNode = new ListNode(1);
+                listNode.next = new ListNode(2);
+                listNode.next.next = new ListNode(3);
+                listNode.next.next.next = new ListNode(4);
+                listNode.next.next.next.next = new ListNode(5);
+                //listNode.next.next.next.next.next = new ListNode(5);
+                //listNode.next.next.next.next.next.next = new ListNode(6);
+                var list = RemoveElements(listNode, 1);
+                var list1 = OddEvenList(listNode);
+
+                ListNode l1 = new ListNode(2);
+                l1.next = new ListNode(4);
+                l1.next.next = new ListNode(3);
+                ListNode l2 = new ListNode(5);
+                l2.next = new ListNode(6);
+                l2.next.next = new ListNode(4);
+                var sumOfList = AddTwoNumbers(l1,l2);
+
+                //5,1,5,5,5,null,5
+                TreeNode root = new TreeNode(5);
+                root.left = new TreeNode(5);
+                root.right = new TreeNode(5);
+                root.left.left = new TreeNode(5);
+                root.left.right = new TreeNode(5);
+                //root.right.right = new TreeNode(5);
+                root.right.right = new TreeNode(5);
+
+                int ansOfTree = CountUnivalSubtrees(root);
+
+                //string test1 = null;
+                //string test1 = "";
+                DateTime dt = DateTime.Now;
+
+                //var ans = test1.ToString();
+                //var ans1 = Convert.ToString(test1);
+                //var dtans = dt as string;//dt.ToString();
+                //var dtans1 = Convert.ToString(dt);
+
+                int queenans = nQueens(2);
+
+                var listAns = Combine(2, 1);
+
+                int firstbadversion = FirstBadVersion(3);
+
+                int jumpcount = jumpingOnClouds(new[] { 0, 0, 1, 0, 0, 1, 0 });
+
+                //long stringans = repeatedString("aba", 10);
+                long stringans = repeatedString("x", 10);
+
+                //int swapAns = minimumSwaps(new[] { 1, 3, 5, 2, 4, 6, 7 });
+                int swapAns = minimumSwaps(new[] { 4, 3, 1, 2 });
 
                 Console.ReadKey();
             }
@@ -616,6 +667,384 @@ namespace My_Test_App_For_GoAir
             //return ans;
 
             return fc;
+        }
+
+        public class ListNode
+        {
+            public int val;
+            public ListNode next;
+            public ListNode(int x) { val = x; }
+        }
+        public static ListNode RemoveElements(ListNode head, int val)
+        {
+            if (head == null)
+                return null;
+
+            //ListNode dummy = new ListNode(0);
+            //dummy.next = head;
+
+            ListNode prev = null;
+            ListNode curr = head;
+            //ListNode nxt = dummy;
+            while(curr != null)
+            {
+                if (curr.val == val && prev == null)
+                {
+                    curr = head.next;
+                    head = head.next;
+                }
+                else
+                {
+                    if (curr.val == val)
+                    {
+                        prev.next = curr.next;
+                        curr = curr.next;
+                    }
+                    else
+                    {
+                        prev = curr;
+                        curr = curr.next;
+                    }
+                }
+            }
+            
+            return head;
+        }
+
+        public static ListNode OddEvenList(ListNode head)
+        {
+            #region
+            //if (head == null)
+            //    return null;
+
+            //ListNode curr = head;
+            //ListNode nxt = head;
+            //ListNode prev = null;
+
+            //if (curr.next == null || curr.next.next == null)
+            //    return head;
+
+            //int i = 1, len = 0;
+
+            //while (curr != null)
+            //{
+            //    len++;
+            //    curr = curr.next;
+            //}
+
+            //curr = head;
+
+            //while (curr != null)
+            //{
+            //    if ((i % 2) == 1 && i < len)
+            //    {
+            //        if (prev == null)
+            //        {
+            //            prev = curr;
+            //            curr = curr.next;
+            //            nxt = curr.next;
+            //        }
+
+            //        prev.next = nxt;
+            //        curr.next = nxt.next;
+            //        nxt.next = curr;
+            //        prev = prev.next;
+            //        nxt = curr.next;
+            //    }
+            //    i++;
+            //    if (i >= len)
+            //        break;
+            //}
+
+            //return head;
+            #endregion
+            if (head == null)
+                return null;
+
+            // Initialize first nodes of even and  
+            // odd lists  
+            ListNode odd = head;
+            ListNode even = head.next;
+
+            // Remember the first node of even list so  
+            // that we can connect the even list at the  
+            // end of odd list.  
+            ListNode evenFirst = even;
+
+            while (1 == 1)
+            {
+                // If there are no more nodes,  
+                // then connect first node of even  
+                // list to the last node of odd list  
+                if (odd == null || even == null ||
+                                (even.next) == null)
+                {
+                    odd.next = evenFirst;
+                    break;
+                }
+
+                // Connecting odd nodes  
+                odd.next = even.next;
+                odd = even.next;
+
+                // If there are NO more even nodes  
+                // after current odd.  
+                if (odd.next == null)
+                {
+                    even.next = null;
+                    odd.next = evenFirst;
+                    break;
+                }
+
+                // Connecting even nodes  
+                even.next = odd.next;
+                even = odd.next;
+            }
+            return head;
+        }
+
+        public static ListNode newNode(int val)
+        {
+            ListNode temp = new ListNode(val);
+            temp.next = null;
+
+            return temp;
+        }
+        public static ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            ListNode ans = null;
+            ListNode res = null;
+            int c = 0;
+            int sum = 0;
+            while (l1 != null || l2 != null)
+            {
+                sum = c + (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0);
+
+                c = sum >= 10 ? 1 : 0;
+                sum = sum % 10;
+
+                if (ans == null)
+                {
+                    ans = newNode(sum);
+                    res = ans;
+                }
+                else
+                {
+                    ans.next = newNode(sum);
+                    ans = ans.next;
+                }
+
+                if (l1 != null)
+                    l1 = l1.next;
+
+                if (l2 != null)
+                    l2 = l2.next;
+            }
+
+            if (c > 0)
+                ans.next = newNode(c);
+
+            return res;
+        }
+
+        public class TreeNode
+        {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+            public TreeNode(int x) { val = x; }
+        }
+
+        //Does not work well
+        public static int CountUnivalSubtrees(TreeNode root)
+        {
+            if (root == null)
+                return 1;
+            int x = CountUnivalSubtreeshelper(root, root.val);
+            return x;
+        }
+
+        private static int count = 0;
+        public static int CountUnivalSubtreeshelper(TreeNode root, int x)
+        {
+            if (root == null)
+                return 0;
+
+            int left = CountUnivalSubtreeshelper(root.left, root.val);
+            int right = CountUnivalSubtreeshelper(root.right, root.val);
+
+            if (left == 0 && right == 0)
+                count++;
+            else
+            {
+                if ((root.left != null && root.val == root.left.val &&
+                   root.right != null && root.val == root.right.val) ||
+                   (root.left == null && root.right != null && root.val == root.right.val)
+                    || (root.left != null && root.right == null && root.val == root.left.val))
+                    count++;
+
+                //if ((root.left != null && root.val == root.left.val) &&
+                //   (root.right != null && root.val == root.right.val))
+                //    count++;
+                //else if (root.left == null && root.right != null && root.val == root.right.val)
+                //    count++;
+                //else if (root.left != null && root.right == null && root.val == root.left.val)
+                //    count++;
+            }
+
+            return count;
+        }
+
+        public static int queenCounter = 0;
+        public static int nQueens(int n)
+        {
+            bool[,] chess = new bool[n, n];
+            queenHelper(chess, 0, -1);
+            return queenCounter;
+        }
+
+        public static void queenHelper(bool[,] chess, int qpsf, int lqpb)
+        {
+            if(qpsf == chess.GetLength(0))
+            {
+                queenCounter++;
+                return;
+            }
+
+            for(int b = lqpb + 1; b < chess.Length; b++)
+            {
+                int row = b / chess.GetLength(0);
+                int col = b % chess.GetLength(0);
+                if (chess[row,col] == false)
+                {
+                    if(isQueenSafe(chess, row, col))
+                    {
+                        chess[row, col] = true;
+                        queenHelper(chess, qpsf + 1, b);
+                        chess[row, col] = false;
+                    }
+                }
+            }
+
+        }
+
+        public static bool isQueenSafe(bool[,] chess, int row, int col)
+        {
+            int[,] dir =
+            {
+                {0,-1},//N
+                {1,-1},//NE
+                {1,0},//E
+                {1,1},//SE
+                {0,1},//S
+                {-1,1},//SW
+                {-1,0},//W
+                {-1,-1}//NW
+            };
+
+            for (int di = 0; di < dir.GetLength(0); di++)
+            {
+                for (int dist = 1; true; dist++)
+                {
+                    int ecol = col + dist * dir[di, 0];
+                    int erow = row + dist * dir[di, 1];
+
+                    if (ecol < 0 || erow < 0 || ecol >= chess.GetLength(1) || erow >= chess.GetLength(0))
+                        break;
+
+                    if (chess[erow, ecol] == true)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static IList<IList<int>> final = null;
+        public static IList<IList<int>> Combine(int n, int k)
+        {
+            final = new List<IList<int>>();
+            List<int> sub = new List<int>();
+            CombineHelper(n, k, 0, 0, 0, sub,"");
+            return final;
+        }
+
+        public static void CombineHelper(int n, int k, int preVal, int preIdx, int psf, List<int> sub, string ansString)
+        {
+            if(psf == k)
+            {
+                var temp = ansString.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+                sub = new List<int>();
+                foreach (var item in temp)
+                {
+                    sub.Add(Convert.ToInt32(item));
+                    //sub.Add(Convert.ToInt32(temp[1]));
+                }
+                final.Add(sub);
+
+                Console.WriteLine(ansString);
+                return;
+            }
+
+            for(int val = preIdx + 1; val <= n; val++)
+            {
+                if(val != preVal)
+                {
+                    //sub.Add(val);
+                    CombineHelper(n, k, val, val, psf + 1, sub, ansString + "," + val.ToString());
+                    //sub.RemoveAt(preIdx);
+                }
+            }
+        }
+
+        public static int FirstBadVersion(int n)
+        {
+
+            /*int l = 1;
+            int r = n;
+
+            while(l <=r)
+            {
+                int m = l + (r - l)/2;
+
+                if(IsBadVersion(m) && l < m && !IsBadVersion(m-1))
+                    return m;
+
+                else if(IsBadVersion(m))
+                    l = m+1;
+                else
+                    r = m;
+            }
+
+            return -1;*/
+            return helper(1, n);
+        }
+
+        public static int helper(int l, int r)
+        {
+            if (l > r)
+                return -1;
+
+            if (l == r)
+                return l;
+
+            int m = l + (r - l) / 2;
+
+            if (IsBadVersion(m))
+            {
+                int left = helper(l, m);
+
+            }
+
+            return helper(m + 1, r);
+        }
+
+        public static bool IsBadVersion(int n)
+        {
+            if (n == 1 || n == 2 || n == 3)
+                return true;
+
+            return false;
         }
     }
 }
