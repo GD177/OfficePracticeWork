@@ -90,8 +90,18 @@ namespace My_Test_App_For_GoAir
 
             public string getString { get; }
         }
+
+        
         public class Program
         {
+            public static List<string> sortList = new List<string> { "hello", "yes!!", "ok", "hell" , "amazing" };
+       
+            //sortList.Add("hello");
+            //    sortList.Add("yes!! hello");
+            //    sortList.Add("ok");
+            //    sortList.Add("hell");
+            //    sortList.Add("amazing");
+
             public static void Main(string[] args)
             {
                 #region
@@ -333,7 +343,69 @@ namespace My_Test_App_For_GoAir
                 //int swapAns = minimumSwaps(new[] { 1, 3, 5, 2, 4, 6, 7 });
                 int swapAns = minimumSwaps(new[] { 4, 3, 1, 2 });
 
+                //List<string> sortList = new List<string>();
+                //sortList.Add("hello");
+                //sortList.Add("yes!! hello");
+                //sortList.Add("ok");
+                //sortList.Add("hell");
+                //sortList.Add("amazing");
+                //sortList.Sort();
+
+                foreach (var item in sortList)
+                    Console.WriteLine(item);
+
+                Console.WriteLine();
+
+                //sortList.Sort(new CompareLength<int> ((left, right) => left.Length.CompareTo(right.Length)));
+                sortList.Sort(CompareLength);
+
+                //Array.Sort<int>(arr, new Comparison<int>(
+                //  (i1, i2) => i2.CompareTo(i1)));
+
+
+                foreach (var item in sortList)
+                    Console.WriteLine(item);
+
+                string[] strArr = { "https://www.hackerearth.com", "https://www.wikipedia.org", "https://www.google.com",
+                                    "https://www.hackerearth.com", "https://www.hackerearth.com" };
+                sortTheUrls(strArr, 5);
+
+                List<List<int>> A = new
+                     List<List<int>> { new List<int> { 1, 2, 3, 4 }, new List<int> { 5, 6, 7, 8 }, new List<int> { 9, 10, 11, 12 } };
+
+                print2DListInterviewBit(A);
+
+                int[][] hourGlass = new int[][]
+                {
+                    new int[] { 1, 1, 1, 0, 0, 0 },
+                    new int[] { 0, 1, 0, 0, 0, 0 },
+                    new int[] { 1, 1, 1, 0, 0, 0 },
+                    new int[] { 0, 0, 2, 4, 4, 0 },
+                    new int[] { 0, 0, 0, 2, 0, 0 },
+                    new int[] { 0, 0, 1, 2, 4, 0 }
+                };
+                int hourGlassAns = hourGlassMethod(hourGlass);
+
                 Console.ReadKey();
+            }
+
+            private static int CompareLength(string left, string right)
+            {
+                var leftString = left;
+                var rightString = right;
+                Console.WriteLine($"Counter {counter++} , {left} , {right}");
+                printList(sortList);
+                return left.Length.CompareTo(right.Length);
+            }
+
+            public static void printList(List<string> sortList)
+            {
+                foreach(var i in sortList)
+                {
+                    Console.Write($" {i}");
+                    
+                }
+                Console.WriteLine();
             }
         }
 
@@ -1045,6 +1117,110 @@ namespace My_Test_App_For_GoAir
                 return true;
 
             return false;
+        }
+
+        //Custom Comparator
+        //public delegate int Comparison<in T>(T left, T right);
+        //public Comparison<T> comparator;
+
+        public static int counter = 0;
+        private static int CompareLength(string left, string right)
+        {
+            var leftString = left;
+            var rightString = right;
+            Console.WriteLine($"Counter {counter++} , {left} , {right}");
+            
+            return left.Length.CompareTo(right.Length);
+        }
+
+        private static int CompareLength1(string left, string right) => left.Length.CompareTo(right.Length);
+
+        public static string[] sortTheUrls(string[] S, int N)
+        {
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            
+            foreach(var str in S)
+            {
+                if (!map.ContainsKey(str))
+                    map[str] = 1;
+                else
+                    map[str]++;
+            }
+            
+            string[] result = new string[map.Count];
+            int index = 0;
+            foreach (var url in map)
+            {
+                result[index++] = url.Key;
+            }
+
+            //Array.Sort(result, Comparelexicographical => { return left.Length.CompareTo(right.Length)});
+
+            int[] array = new int[] { 3, 1, 4, 5, 2 };
+            Array.Sort(array, new Comparison<int>( (i1, i2) => i2.CompareTo(i1)));
+
+            //Arrays.sort(result, (a, b)-> {
+            //    if (map.get(a) == map.get(b))
+            //    {
+            //        return a.compareTo(b);
+            //    }
+            //    return map.get(b) - map.get(a);
+            //});
+
+            return result;
+        }
+
+        private static int Comparelexicographical(string left, string right)
+        {
+            var leftString = left;
+            var rightString = right;
+            return left.Length.CompareTo(right.Length);
+        }
+
+        public static void print2DListInterviewBit(List<List<int>> A)
+        {
+            List<List<int>> B = new List<List<int>>();
+            for (int i = 0; i < A.Count; i++)
+            {
+                B.Add(new List<int>());
+                //var subList = A[i];
+                for (int j = 0; j < A[i].Count; j++)
+                {
+                    B[i].Add(0);
+                }
+
+                for (int j = 0; j < A[i].Count; j++)
+                {
+                    var sublistB = B[i];
+                    var sublistA = A[i];
+                    //int[] arr = sublist.ToArray();
+                    sublistB[A[i].Count - 1 - j] = sublistA[j];
+                }
+            }
+            
+        }
+
+        public static int hourGlassMethod(int[][] mat)
+        {
+            int maxSum = int.MinValue;
+            int sum = 0;
+
+            int dr = mat.Length;
+            int dc = mat[0].Length;
+
+            for (int r = dc - 3; r >= 0; r--)
+            {
+                for(int c = dc - 3; c >=0; c--)
+                {
+                    sum = mat[r][c] + mat[r][c + 1] + mat[r][c + 2] - mat[r + 1][c] + mat[r + 2][c] + mat[r + 1][c + 1]
+                        - mat[r + 1][c + 2] + mat[r + 2][c + 1] + mat[r + 2][c + 2];
+
+                    if (sum > maxSum)
+                        maxSum = sum;
+                }
+            }
+
+            return maxSum;
         }
     }
 }
