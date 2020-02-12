@@ -418,6 +418,8 @@ namespace My_Test_App_For_GoAir
                 int[,] spiralMatrix = new int[,] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
                 printMatrixInSpiralOrder(spiralMatrix);
 
+                printMatrxiinZigZagOrder(spiralMatrix);
+
                 Console.ReadKey();
             }
 
@@ -1399,7 +1401,7 @@ namespace My_Test_App_For_GoAir
         public static void printMatrixInSpiralOrder(int[,] matrix)
         {
             int k = 0; //row start 
-            int l = 0; //col end
+            int l = 0; //col start
             int m = matrix.GetLength(0); //row end
             int n = matrix.GetLength(1); // col end
 
@@ -1437,6 +1439,31 @@ namespace My_Test_App_For_GoAir
                     }
                     l++;
                 }
+                Console.WriteLine();
+            }
+        }
+
+        public static void printMatrxiinZigZagOrder(int[,] matrix)
+        {
+            int k = 0; //row start 
+            int l = 0; //col start
+            int m = matrix.GetLength(0); //row end
+            int n = matrix.GetLength(1); // col end
+
+            while (k < m)
+            {
+                for (int c = l; c < n; c++)
+                {
+                    Console.Write(matrix[k, c]);
+                }
+                k++;
+                Console.WriteLine();
+
+                for (int c = n-1; c >=0; c--)
+                {
+                    Console.Write(matrix[k, c]);
+                }
+                k++;
                 Console.WriteLine();
             }
         }
