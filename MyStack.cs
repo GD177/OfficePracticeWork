@@ -9,11 +9,11 @@ namespace My_Test_App_For_GoAir
     {
         internal class Stack
         {
-            int MAX;// = 1000;
-            int top;
-            int[] stack;// = new int[MAX];
+            private readonly int MAX;// = 1000;
+            private int top;
+            private readonly int[] stack;// = new int[MAX];
 
-            bool IsEmpty()
+            private bool IsEmpty()
             {
                 return (top < 0);
             }
@@ -59,7 +59,9 @@ namespace My_Test_App_For_GoAir
                     return;
                 }
                 else
+                {
                     Console.WriteLine("The topmost element of Stack is : {0}", stack[top]);
+                }
             }
 
             internal void PrintStack()
@@ -91,11 +93,11 @@ namespace My_Test_App_For_GoAir
             public string getString { get; }
         }
 
-        
+
         public class Program
         {
-            public static List<string> sortList = new List<string> { "hello", "yes!!", "ok", "hell" , "amazing" };
-       
+            public static List<string> sortList = new List<string> { "hello", "yes!!", "ok", "hell", "amazing" };
+
             //sortList.Add("hello");
             //    sortList.Add("yes!! hello");
             //    sortList.Add("ok");
@@ -187,8 +189,10 @@ namespace My_Test_App_For_GoAir
                 //countSort.countSort();
 
                 //Nested Class test
-                NestedClass nestedClass = new NestedClass();
-                nestedClass.j = 2;
+                NestedClass nestedClass = new NestedClass
+                {
+                    j = 2
+                };
                 nestedClass.insideNested.method();
 
                 //NestedClass.InsideNested insideNested = new NestedClass.InsideNested();
@@ -218,7 +222,7 @@ namespace My_Test_App_For_GoAir
                     //linkedList.printLL();
                     //return;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Do nothing
                     Console.WriteLine("Inside Catch block");
@@ -233,7 +237,7 @@ namespace My_Test_App_For_GoAir
                 try
                 {
                     string test = "456|223|434";
-                    var id = test.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] id = test.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
                     newA oba = new newA();
                     oba.method();
@@ -261,7 +265,7 @@ namespace My_Test_App_For_GoAir
                     Console.WriteLine("----------------------------------------");
                     ArrayList arrayList = new ArrayList();
                     arrayList = KeypadProblemWdArrayList("123", "", arrayList);
-                    foreach (var item in arrayList)
+                    foreach (object item in arrayList)
                     {
                         Console.WriteLine(item);
                     }
@@ -270,11 +274,11 @@ namespace My_Test_App_For_GoAir
                     Console.WriteLine("------------RatMazeWithDiagonal----------------------------");
                     //RatMazeProblemWdDiagonal(0, 0, 3, 3, "");
                 }
-                catch(ArgumentNullException ex)
+                catch (ArgumentNullException)
                 {
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("Exception Caught");
                 }
@@ -291,28 +295,44 @@ namespace My_Test_App_For_GoAir
                 //int  x = LengthOfLongestSubstring("au");
                 //Stack<char> s = new Stack<char>();
                 //1,2,6,3,4,5,6
-                ListNode listNode = new ListNode(1);
-                listNode.next = new ListNode(2);
-                listNode.next.next = new ListNode(3);
-                listNode.next.next.next = new ListNode(4);
-                listNode.next.next.next.next = new ListNode(5);
+                ListNode listNode = new ListNode(1)
+                {
+                    next = new ListNode(2)
+                    {
+                        next = new ListNode(3)
+                    }
+                };
+                listNode.next.next.next = new ListNode(4)
+                {
+                    next = new ListNode(5)
+                };
                 //listNode.next.next.next.next.next = new ListNode(5);
                 //listNode.next.next.next.next.next.next = new ListNode(6);
-                var list = RemoveElements(listNode, 1);
-                var list1 = OddEvenList(listNode);
+                ListNode list = RemoveElements(listNode, 1);
+                ListNode list1 = OddEvenList(listNode);
 
-                ListNode l1 = new ListNode(2);
-                l1.next = new ListNode(4);
-                l1.next.next = new ListNode(3);
-                ListNode l2 = new ListNode(5);
-                l2.next = new ListNode(6);
-                l2.next.next = new ListNode(4);
-                var sumOfList = AddTwoNumbers(l1,l2);
+                ListNode l1 = new ListNode(2)
+                {
+                    next = new ListNode(4)
+                    {
+                        next = new ListNode(3)
+                    }
+                };
+                ListNode l2 = new ListNode(5)
+                {
+                    next = new ListNode(6)
+                    {
+                        next = new ListNode(4)
+                    }
+                };
+                ListNode sumOfList = AddTwoNumbers(l1, l2);
 
                 //5,1,5,5,5,null,5
-                TreeNode root = new TreeNode(5);
-                root.left = new TreeNode(5);
-                root.right = new TreeNode(5);
+                TreeNode root = new TreeNode(5)
+                {
+                    left = new TreeNode(5),
+                    right = new TreeNode(5)
+                };
                 root.left.left = new TreeNode(5);
                 root.left.right = new TreeNode(5);
                 //root.right.right = new TreeNode(5);
@@ -331,7 +351,7 @@ namespace My_Test_App_For_GoAir
 
                 int queenans = nQueens(2);
 
-                var listAns = Combine(2, 1);
+                IList<IList<int>> listAns = Combine(2, 1);
 
                 int firstbadversion = FirstBadVersion(3);
 
@@ -351,8 +371,10 @@ namespace My_Test_App_For_GoAir
                 //sortList.Add("amazing");
                 //sortList.Sort();
 
-                foreach (var item in sortList)
+                foreach (string item in sortList)
+                {
                     Console.WriteLine(item);
+                }
 
                 Console.WriteLine();
 
@@ -363,8 +385,10 @@ namespace My_Test_App_For_GoAir
                 //  (i1, i2) => i2.CompareTo(i1)));
 
 
-                foreach (var item in sortList)
+                foreach (string item in sortList)
+                {
                     Console.WriteLine(item);
+                }
 
                 string[] strArr = { "https://www.hackerearth.com", "https://www.wikipedia.org", "https://www.google.com",
                                     "https://www.hackerearth.com", "https://www.hackerearth.com" };
@@ -386,13 +410,21 @@ namespace My_Test_App_For_GoAir
                 };
                 int hourGlassAns = hourGlassMethod(hourGlass);
 
+                int[,] transposeMatrix = new[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+                int[,] transposeMatrix1 = new[,] { { 1, 2, 3, 4, 5 }, { 6, 7, 8, 9, 10 }, { 11, 12, 13, 14, 15 },
+                                                { 16, 17, 18, 19, 20 }, { 21, 22, 23, 24, 25 }};
+                transposeOfMatrix(transposeMatrix1);
+
+                int[,] spiralMatrix = new int[,] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+                printMatrixInSpiralOrder(spiralMatrix);
+
                 Console.ReadKey();
             }
 
             private static int CompareLength(string left, string right)
             {
-                var leftString = left;
-                var rightString = right;
+                string leftString = left;
+                string rightString = right;
                 Console.WriteLine($"Counter {counter++} , {left} , {right}");
                 printList(sortList);
                 return left.Length.CompareTo(right.Length);
@@ -400,10 +432,10 @@ namespace My_Test_App_For_GoAir
 
             public static void printList(List<string> sortList)
             {
-                foreach(var i in sortList)
+                foreach (string i in sortList)
                 {
                     Console.Write($" {i}");
-                    
+
                 }
                 Console.WriteLine();
             }
@@ -418,7 +450,9 @@ namespace My_Test_App_For_GoAir
             }
 
             if (sr > dr || sc > dc)
+            {
                 return;
+            }
 
             RatMazeProblemWdDiagonal(sr, sc + 1, dr, dc, ans + "H");
             RatMazeProblemWdDiagonal(sr + 1, sc + 1, dr, dc, ans + "D");
@@ -435,9 +469,14 @@ namespace My_Test_App_For_GoAir
             //if (sr > dr || sc > dc)
             //    return;
             if (sc <= dc)
+            {
                 RatMazeProblem(sr, sc + 1, dr, dc, ans + "H");
+            }
+
             if (sr <= dr)
+            {
                 RatMazeProblem(sr + 1, sc, dr, dc, ans + "V");
+            }
         }
 
         public static string[] code = { ".", "ab", "cd", "ef", "gh", "ij", "kl", "mn", "op", "qr", "st", "uv", "wx", "yz" };
@@ -564,10 +603,14 @@ namespace My_Test_App_For_GoAir
             {
                 m = l + (r - l) / 2;
                 if (l == r && arr[l] == l)
+                {
                     return l;
+                }
 
                 if (arr[m] == m)
+                {
                     return m;
+                }
 
                 if (arr[m] > m)
                 {
@@ -594,11 +637,15 @@ namespace My_Test_App_For_GoAir
         private static int Helper(string data, int k, int[] memo, int res)
         {
             if (k == 0)
+            {
                 return 1;
+            }
 
             int s = data.Length - k;
             if (data[s] == '0')
+            {
                 return 0;
+            }
 
             res = Helper(data, k - 1, memo, res) + res;
 
@@ -614,20 +661,23 @@ namespace My_Test_App_For_GoAir
             char prev = '\0';
             char curr = '\0';
             //foreach(char c in s)
-            for(int i = 0 ; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
-                if(i != 0)
-                    prev = s[i-1];
+                if (i != 0)
+                {
+                    prev = s[i - 1];
+                }
+
                 curr = s[i];
-                
-                if(s[i] == 'I')
+
+                if (s[i] == 'I')
                 {
                     ans += 1;
                 }
-                else if(s[i] == 'V')
+                else if (s[i] == 'V')
                 {
                     ans += 5;
-                    if(prev == 'I' && prev != '\0')
+                    if (prev == 'I' && prev != '\0')
                     {
                         ans -= 2;
                     }
@@ -656,7 +706,7 @@ namespace My_Test_App_For_GoAir
                 {
                     ans += 1000;
                 }
-                
+
                 //switch (s[i])
                 //{
                 //    case 'I':
@@ -693,7 +743,10 @@ namespace My_Test_App_For_GoAir
         public static int LengthOfLongestSubstring(string s)
         {
             if (string.IsNullOrWhiteSpace(s) && s.Length < 1)
+            {
                 return 0;
+            }
+
             Dictionary<char, int> map = new Dictionary<char, int>();
 
             int len = s.Length - 1;
@@ -711,9 +764,11 @@ namespace My_Test_App_For_GoAir
                     count = 1;
                     map[s[i]]++;
                 }
-                
+
                 if (fc < count)
+                {
                     fc = count;
+                }
             }
 
             //if (map[s[len]] < 1)
@@ -750,7 +805,9 @@ namespace My_Test_App_For_GoAir
         public static ListNode RemoveElements(ListNode head, int val)
         {
             if (head == null)
+            {
                 return null;
+            }
 
             //ListNode dummy = new ListNode(0);
             //dummy.next = head;
@@ -758,7 +815,7 @@ namespace My_Test_App_For_GoAir
             ListNode prev = null;
             ListNode curr = head;
             //ListNode nxt = dummy;
-            while(curr != null)
+            while (curr != null)
             {
                 if (curr.val == val && prev == null)
                 {
@@ -779,7 +836,7 @@ namespace My_Test_App_For_GoAir
                     }
                 }
             }
-            
+
             return head;
         }
 
@@ -831,7 +888,9 @@ namespace My_Test_App_For_GoAir
             //return head;
             #endregion
             if (head == null)
+            {
                 return null;
+            }
 
             // Initialize first nodes of even and  
             // odd lists  
@@ -877,8 +936,10 @@ namespace My_Test_App_For_GoAir
 
         public static ListNode newNode(int val)
         {
-            ListNode temp = new ListNode(val);
-            temp.next = null;
+            ListNode temp = new ListNode(val)
+            {
+                next = null
+            };
 
             return temp;
         }
@@ -907,14 +968,20 @@ namespace My_Test_App_For_GoAir
                 }
 
                 if (l1 != null)
+                {
                     l1 = l1.next;
+                }
 
                 if (l2 != null)
+                {
                     l2 = l2.next;
+                }
             }
 
             if (c > 0)
+            {
                 ans.next = newNode(c);
+            }
 
             return res;
         }
@@ -931,7 +998,10 @@ namespace My_Test_App_For_GoAir
         public static int CountUnivalSubtrees(TreeNode root)
         {
             if (root == null)
+            {
                 return 1;
+            }
+
             int x = CountUnivalSubtreeshelper(root, root.val);
             return x;
         }
@@ -940,20 +1010,26 @@ namespace My_Test_App_For_GoAir
         public static int CountUnivalSubtreeshelper(TreeNode root, int x)
         {
             if (root == null)
+            {
                 return 0;
+            }
 
             int left = CountUnivalSubtreeshelper(root.left, root.val);
             int right = CountUnivalSubtreeshelper(root.right, root.val);
 
             if (left == 0 && right == 0)
+            {
                 count++;
+            }
             else
             {
                 if ((root.left != null && root.val == root.left.val &&
                    root.right != null && root.val == root.right.val) ||
                    (root.left == null && root.right != null && root.val == root.right.val)
                     || (root.left != null && root.right == null && root.val == root.left.val))
+                {
                     count++;
+                }
 
                 //if ((root.left != null && root.val == root.left.val) &&
                 //   (root.right != null && root.val == root.right.val))
@@ -977,19 +1053,19 @@ namespace My_Test_App_For_GoAir
 
         public static void queenHelper(bool[,] chess, int qpsf, int lqpb)
         {
-            if(qpsf == chess.GetLength(0))
+            if (qpsf == chess.GetLength(0))
             {
                 queenCounter++;
                 return;
             }
 
-            for(int b = lqpb + 1; b < chess.Length; b++)
+            for (int b = lqpb + 1; b < chess.Length; b++)
             {
                 int row = b / chess.GetLength(0);
                 int col = b % chess.GetLength(0);
-                if (chess[row,col] == false)
+                if (chess[row, col] == false)
                 {
-                    if(isQueenSafe(chess, row, col))
+                    if (isQueenSafe(chess, row, col))
                     {
                         chess[row, col] = true;
                         queenHelper(chess, qpsf + 1, b);
@@ -1022,10 +1098,14 @@ namespace My_Test_App_For_GoAir
                     int erow = row + dist * dir[di, 1];
 
                     if (ecol < 0 || erow < 0 || ecol >= chess.GetLength(1) || erow >= chess.GetLength(0))
+                    {
                         break;
+                    }
 
                     if (chess[erow, ecol] == true)
+                    {
                         return false;
+                    }
                 }
             }
 
@@ -1037,17 +1117,17 @@ namespace My_Test_App_For_GoAir
         {
             final = new List<IList<int>>();
             List<int> sub = new List<int>();
-            CombineHelper(n, k, 0, 0, 0, sub,"");
+            CombineHelper(n, k, 0, 0, 0, sub, "");
             return final;
         }
 
         public static void CombineHelper(int n, int k, int preVal, int preIdx, int psf, List<int> sub, string ansString)
         {
-            if(psf == k)
+            if (psf == k)
             {
-                var temp = ansString.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+                string[] temp = ansString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 sub = new List<int>();
-                foreach (var item in temp)
+                foreach (string item in temp)
                 {
                     sub.Add(Convert.ToInt32(item));
                     //sub.Add(Convert.ToInt32(temp[1]));
@@ -1058,9 +1138,9 @@ namespace My_Test_App_For_GoAir
                 return;
             }
 
-            for(int val = preIdx + 1; val <= n; val++)
+            for (int val = preIdx + 1; val <= n; val++)
             {
-                if(val != preVal)
+                if (val != preVal)
                 {
                     //sub.Add(val);
                     CombineHelper(n, k, val, val, psf + 1, sub, ansString + "," + val.ToString());
@@ -1095,10 +1175,14 @@ namespace My_Test_App_For_GoAir
         public static int helper(int l, int r)
         {
             if (l > r)
+            {
                 return -1;
+            }
 
             if (l == r)
+            {
                 return l;
+            }
 
             int m = l + (r - l) / 2;
 
@@ -1114,7 +1198,9 @@ namespace My_Test_App_For_GoAir
         public static bool IsBadVersion(int n)
         {
             if (n == 1 || n == 2 || n == 3)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -1126,30 +1212,37 @@ namespace My_Test_App_For_GoAir
         public static int counter = 0;
         private static int CompareLength(string left, string right)
         {
-            var leftString = left;
-            var rightString = right;
+            string leftString = left;
+            string rightString = right;
             Console.WriteLine($"Counter {counter++} , {left} , {right}");
-            
+
             return left.Length.CompareTo(right.Length);
         }
 
-        private static int CompareLength1(string left, string right) => left.Length.CompareTo(right.Length);
+        private static int CompareLength1(string left, string right)
+        {
+            return left.Length.CompareTo(right.Length);
+        }
 
         public static string[] sortTheUrls(string[] S, int N)
         {
             Dictionary<string, int> map = new Dictionary<string, int>();
-            
-            foreach(var str in S)
+
+            foreach (string str in S)
             {
                 if (!map.ContainsKey(str))
+                {
                     map[str] = 1;
+                }
                 else
+                {
                     map[str]++;
+                }
             }
-            
+
             string[] result = new string[map.Count];
             int index = 0;
-            foreach (var url in map)
+            foreach (KeyValuePair<string, int> url in map)
             {
                 result[index++] = url.Key;
             }
@@ -1157,7 +1250,7 @@ namespace My_Test_App_For_GoAir
             //Array.Sort(result, Comparelexicographical => { return left.Length.CompareTo(right.Length)});
 
             int[] array = new int[] { 3, 1, 4, 5, 2 };
-            Array.Sort(array, new Comparison<int>( (i1, i2) => i2.CompareTo(i1)));
+            Array.Sort(array, new Comparison<int>((i1, i2) => i2.CompareTo(i1)));
 
             //Arrays.sort(result, (a, b)-> {
             //    if (map.get(a) == map.get(b))
@@ -1172,8 +1265,8 @@ namespace My_Test_App_For_GoAir
 
         private static int Comparelexicographical(string left, string right)
         {
-            var leftString = left;
-            var rightString = right;
+            string leftString = left;
+            string rightString = right;
             return left.Length.CompareTo(right.Length);
         }
 
@@ -1191,17 +1284,22 @@ namespace My_Test_App_For_GoAir
 
                 for (int j = 0; j < A[i].Count; j++)
                 {
-                    var sublistB = B[i];
-                    var sublistA = A[i];
+                    List<int> sublistB = B[i];
+                    List<int> sublistA = A[i];
                     //int[] arr = sublist.ToArray();
                     sublistB[A[i].Count - 1 - j] = sublistA[j];
                 }
             }
-            
+
         }
 
         public static int hourGlassMethod(int[][] mat)
         {
+            if (mat.Length < 3)
+            {
+                return 0;
+            }
+
             int maxSum = int.MinValue;
             int sum = 0;
 
@@ -1210,17 +1308,137 @@ namespace My_Test_App_For_GoAir
 
             for (int r = dc - 3; r >= 0; r--)
             {
-                for(int c = dc - 3; c >=0; c--)
+                for (int c = dc - 3; c >= 0; c--)
                 {
-                    sum = mat[r][c] + mat[r][c + 1] + mat[r][c + 2] - mat[r + 1][c] + mat[r + 2][c] + mat[r + 1][c + 1]
-                        - mat[r + 1][c + 2] + mat[r + 2][c + 1] + mat[r + 2][c + 2];
+                    sum = mat[r][c] + mat[r][c + 1] + mat[r][c + 2] + mat[r + 2][c] + mat[r + 1][c + 1]
+                        + mat[r + 2][c + 1] + mat[r + 2][c + 2];
 
                     if (sum > maxSum)
+                    {
                         maxSum = sum;
+                    }
                 }
             }
 
             return maxSum;
+        }
+
+        public static void transposeOfMatrix(int[,] matrix)
+        {
+            int row = matrix.GetLength(0);
+            int col = matrix.GetLength(1);
+
+            for (int r = 0; r < row; r++)
+            {
+                for (int c = 0; c < col; c++)
+                {
+                    Console.Write($"{matrix[r, c]} ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+
+            //Doing Transpose 
+            for (int r = 0; r < row; r++)
+            {
+                for (int c = r + 1; c < col; c++)
+                {
+                    int temp = matrix[r, c];
+                    matrix[r, c] = matrix[c, r];
+                    matrix[c, r] = temp;
+                }
+            }
+
+            for (int r = 0; r < row; r++)
+            {
+                for (int c = 0; c < col; c++)
+                {
+                    Console.Write($"{matrix[r, c]} ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+
+            //Rotating matrix 90 ^
+            for (int r = 0; r < row; r++)
+            {
+                //start and end are column iterator
+                int start = 0;
+                int end = col - 1;
+                while (start < end)
+                {
+                    int temp = matrix[r, end];
+                    matrix[r, end] = matrix[r, start];
+                    matrix[r, start] = temp;
+                    end--;
+                    start++;
+                }
+                //OR we can do in this manner also
+                /*for (int i = 0; i < row; i++)
+                {
+                    for (int j = 0; j < row / 2; j++)
+                    {
+                        int temp = matrix[i, row - 1 - j];
+                        matrix[i, row - 1 - j] = matrix[i, j];
+                        matrix[i, j] = temp;
+                    }
+                }*/
+            }
+
+            for (int r = 0; r < row; r++)
+            {
+                for (int c = 0; c < col; c++)
+                {
+                    Console.Write($"{matrix[r, c]} ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        public static void printMatrixInSpiralOrder(int[,] matrix)
+        {
+            int k = 0; //row start 
+            int l = 0; //col end
+            int m = matrix.GetLength(0); //row end
+            int n = matrix.GetLength(1); // col end
+
+            while (k < m && l < n)
+            {
+                for (int c = l; c < n; c++)
+                {
+                    Console.Write(matrix[k, c]);
+                }
+                k++;
+                Console.WriteLine();
+
+                for (int r = k; r < m; r++)
+                {
+                    Console.Write(matrix[r, n-1]);
+                }
+                n--;
+                Console.WriteLine();
+
+                if (k < m)
+                {
+                    for (int c = n - 1; c >= l; c--)
+                    {
+                        Console.Write(matrix[m - 1, c]);
+                    }
+                    m--;
+                }
+                Console.WriteLine();
+
+                if (l < n)
+                {
+                    for (int r = m - 1; r >= k; r--)
+                    {
+                        Console.Write(matrix[r, l]);
+                    }
+                    l++;
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
