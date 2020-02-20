@@ -92,8 +92,7 @@ namespace My_Test_App_For_GoAir
 
             public string getString { get; }
         }
-
-
+        
         public class Program
         {
             public static List<string> sortList = new List<string> { "hello", "yes!!", "ok", "hell", "amazing" };
@@ -363,6 +362,8 @@ namespace My_Test_App_For_GoAir
                 //int swapAns = minimumSwaps(new[] { 1, 3, 5, 2, 4, 6, 7 });
                 int swapAns = minimumSwaps(new[] { 4, 3, 1, 2 });
 
+                //======================================
+                //SORT STRING USING CUSTOM SORTING
                 //List<string> sortList = new List<string>();
                 //sortList.Add("hello");
                 //sortList.Add("yes!! hello");
@@ -389,10 +390,11 @@ namespace My_Test_App_For_GoAir
                 {
                     Console.WriteLine(item);
                 }
+                //======================================
 
                 string[] strArr = { "https://www.hackerearth.com", "https://www.wikipedia.org", "https://www.google.com",
-                                    "https://www.hackerearth.com", "https://www.hackerearth.com" };
-                sortTheUrls(strArr, 5);
+                                    "https://www.hackerearth.com", "https://www.hackerearth.com", "https://www.geeksforgeeks.org" };
+                sortTheUrls(strArr, strArr.Length);
 
                 List<List<int>> A = new
                      List<List<int>> { new List<int> { 1, 2, 3, 4 }, new List<int> { 5, 6, 7, 8 }, new List<int> { 9, 10, 11, 12 } };
@@ -420,9 +422,77 @@ namespace My_Test_App_For_GoAir
 
                 printMatrxiinZigZagOrder(spiralMatrix);
 
+                //1. { 1, 4, 20, 3, 10, 5 }, sum = 33
+                //2. {1, 4, 0, 0, 3, 10, 5}, sum = 7
+                //3. {1, 4}, sum = 0
+                //4. {10, 0, 2, -2, -20, 10}, sum = 20
+                //5. { 10, 2, -2, -20, 10}, sum = -10
+                var subarraywdgivensum = subArrayWdGivenSum(new int[] { 10, 2, -2, -20, 10 }, -10);
+
+                var suarraywddic = subArrayWdGivenSumWdDic(new int[] { 3, 4, 7, 2, -3, 1, 4, 2 }, 7);
+
+                var nextGreaterElement = NextGreaterElement(new int[] { 4, 1, 2 }, new int[] { 1, 3, 4, 2 });
+
+                SortDictionayExample();
+
+                var listArrangePoints = new List<KeyValuePair<int, int>>();
+                var p1 = new KeyValuePair<int, int>(2, 5);
+                var p2 = new KeyValuePair<int, int>(3, 6);
+                var p3 = new KeyValuePair<int, int>(1, 2);
+                var p4 = new KeyValuePair<int, int>(3, 5);
+                var p5 = new KeyValuePair<int, int>(5, 1);
+                listArrangePoints.Add(p1);
+                listArrangePoints.Add(p2);
+                listArrangePoints.Add(p3);
+                listArrangePoints.Add(p4);
+                listArrangePoints.Add(p5);
+                
+                ArrangePoints(listArrangePoints);
+
+                var plusOneans = plusOne(new List<int> { 0, 0, 4, 4, 6, 0, 9, 6, 5, 1 });
+
+                //Test strings -> hello , ll
+                //helo , ll
+                //mississippi , issip
+                var StrStrAns = ImplementStrStr("mississippi", "issip");
+
+                SortArrayof012(new int[] { 0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1 });
+
+                ListNode nodeA = new ListNode(4)
+                {
+                    next = new ListNode(1)
+                    {
+                        next = new ListNode(8)
+                        {
+                            next = new ListNode(4)
+                            {
+                                next = new ListNode(5)
+                            }
+                        }
+                    }
+                };
+
+                ListNode nodeB = new ListNode(5)
+                {
+                    next = new ListNode(0)
+                    {
+                        next = new ListNode(1)
+                        {
+                            next = new ListNode(8)
+                            {
+                                next = new ListNode(4)
+                                {
+                                    next = new ListNode(5)
+                                }
+                            }
+                        }
+                    }
+                };
+                var nodeans = GetIntersectionNode(nodeA, nodeB);
+
                 Console.ReadKey();
             }
-
+            
             private static int CompareLength(string left, string right)
             {
                 string leftString = left;
@@ -441,6 +511,26 @@ namespace My_Test_App_For_GoAir
                 }
                 Console.WriteLine();
             }
+        }
+
+        private static void SortDictionayExample()
+        {
+            BoxEqualityComparer boxEqC = new BoxEqualityComparer();
+
+            var boxes = new Dictionary<Box, string>(boxEqC);
+
+            var redBox = new Box(4, 3, 4);
+            SortedDictionaryExample.AddBox(boxes, redBox, "red");
+
+            var blueBox = new Box(4, 3, 4);
+            SortedDictionaryExample.AddBox(boxes, blueBox, "blue");
+
+            var greenBox = new Box(3, 4, 3);
+            SortedDictionaryExample.AddBox(boxes, greenBox, "green");
+            Console.WriteLine();
+
+            Console.WriteLine("The dictionary contains {0} Box objects.",
+                              boxes.Count);
         }
 
         public static void RatMazeProblemWdDiagonal(int sr, int sc, int dr, int dc, string ans)
@@ -1249,10 +1339,30 @@ namespace My_Test_App_For_GoAir
                 result[index++] = url.Key;
             }
 
-            //Array.Sort(result, Comparelexicographical => { return left.Length.CompareTo(right.Length)});
+            var myList = new List<KeyValuePair<string, int>>();
 
-            int[] array = new int[] { 3, 1, 4, 5, 2 };
-            Array.Sort(array, new Comparison<int>((i1, i2) => i2.CompareTo(i1)));
+            foreach (var pair in map)
+                myList.Add(new KeyValuePair<string, int> ( pair.Key, pair.Value ));
+
+            myList.Sort(
+                delegate (KeyValuePair<string, int> pair1,
+                KeyValuePair<string, int> pair2)
+                {
+                    if(pair1.Value == pair2.Value)
+                        return pair1.Key.CompareTo(pair2.Key);
+
+                    return pair2.Value - pair1.Value;// this will do decreasing order
+                    //return pair1.Value - pair2.Value;// this will do increasing order
+                }
+            );
+
+            //Array.Sort(result, Comparelexicographical > { return left.Length.CompareTo(right.Length)});
+
+            //int[] array = new int[] { 3, 1, 4, 5, 2 };
+            //Array.Sort(array, new Comparison<int>((i1, i2) => i2.CompareTo(i1)));
+
+            //var sortedMap = map(new SortDictionary());
+            //Array.Sort(result, new SortDictionary());
 
             //Arrays.sort(result, (a, b)-> {
             //    if (map.get(a) == map.get(b))
@@ -1325,6 +1435,7 @@ namespace My_Test_App_For_GoAir
             return maxSum;
         }
 
+        //transpose Of Matrix
         public static void transposeOfMatrix(int[,] matrix)
         {
             int row = matrix.GetLength(0);
@@ -1398,6 +1509,7 @@ namespace My_Test_App_For_GoAir
             Console.WriteLine();
         }
 
+        //print Matrix In Spiral Order
         public static void printMatrixInSpiralOrder(int[,] matrix)
         {
             int k = 0; //row start 
@@ -1443,6 +1555,7 @@ namespace My_Test_App_For_GoAir
             }
         }
 
+        //print Matrix in ZigZag Order
         public static void printMatrxiinZigZagOrder(int[,] matrix)
         {
             int k = 0; //row start 
@@ -1466,6 +1579,289 @@ namespace My_Test_App_For_GoAir
                 k++;
                 Console.WriteLine();
             }
+        }
+
+        //Do not handle negative number
+        public static List<int> subArrayWdGivenSum(int[] arr, int sum)
+        {
+            List<int> vs = new List<int>();
+
+            int currSum = 0;// arr[0];
+            int i = 0;
+
+            for(int j = 0; j < arr.Length; j++)
+            {
+                currSum += arr[j];
+
+                while(currSum > sum && i < j)
+                {
+                    currSum -= arr[i];
+                    i++;
+                }
+
+                if (currSum == sum)
+                {
+                    vs.Add(i);
+                    vs.Add(j);
+                }
+            }
+            //vs.ToArray();
+            return vs;
+        }
+
+        //Handle's negative number
+        public static int subArrayWdGivenSumWdDic(int[] arr, int sum)
+        {
+            int count = 0;
+            var map = new Dictionary<int, int>();
+            int currSum = 0;
+            map.Add(0,1);
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                currSum += arr[i];
+
+                //if (currSum == sum)
+                //    count++;
+
+                if (map.ContainsKey(currSum - sum))
+                    count += map[currSum - sum];
+
+                if (map.ContainsKey(currSum))
+                    map[currSum] += 1;
+                else
+                    map[currSum] = 1;
+            }
+
+            return count;
+        }
+
+        //NextGreaterElement -> Not complete
+        public static int[] NextGreaterElement(int[] nums1, int[] nums2)
+        {
+            List<int> ans = new List<int>();
+
+            for (int i = 0; i < nums1.Length; i++)
+            {
+                int j = i;
+                while (j < nums2.Length && nums1[i] >= nums2[j])
+                    j++;
+
+                if (j == nums2.Length)
+                    ans.Add(-1);
+                else
+                {
+                    ans.Add(nums2[j]);
+                }
+            }
+
+            return ans.ToArray();
+        }
+
+        //Arrange points Hacker Earth
+        public static List<KeyValuePair<int, int>> ArrangePoints(List<KeyValuePair<int, int>> list)
+        {
+            var finalans = new List<KeyValuePair<int, int>>();
+
+            list.Sort(delegate (KeyValuePair<int, int> pair1, KeyValuePair<int, int> pair2)
+            {
+                if (pair1.Key == pair2.Key)
+                    return pair2.Value - pair1.Value;
+
+                return pair1.Key - pair2.Key;
+            });
+
+            foreach (var item in list)
+            {
+                Console.WriteLine(item.Key + " " + item.Value);
+            }
+
+            return list;
+            //int n = Convert.ToInt32(Console.ReadLine());
+            //var list1 = new List<KeyValuePair<int, int>>();
+            //for (int i = 0; i < n; i++)
+            //{
+            //    var a = Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            //    var newPair = new KeyValuePair<int, int>
+            //    (Convert.ToInt32(Console.ReadLine()),
+            //     Convert.ToInt32(Console.ReadLine()));
+            //    //int a = Console.Read();
+            //    //int b = Console.Read();
+            //    //newPair.Add(a,b);
+            //    list1.Add(newPair);
+            //}
+
+            //list1.Sort(delegate (KeyValuePair<int, int> p1, KeyValuePair<int, int> p2)
+            //{
+            //    if (p1.Key == p2.Key)
+            //        return p2.Value - p1.Value;
+
+            //    return p1.Key - p2.Key;
+            //});
+
+            //foreach (var item in list1)
+            //{
+            //    Console.WriteLine(item.Key + " " + item.Value);
+            //}
+
+            //return list1;
+        }
+
+        //Plus One
+        public static List<int> plusOne(List<int> A)
+        {
+            int carry = 0;
+            int sum = 0;
+            var arr = new List<int>();
+            for (int i = A.Count - 1; i >= 0; i--)
+            {
+                if (i == A.Count - 1)
+                    sum = A[i] + 1;
+
+                if (sum < 10)
+                {
+                    if (sum != 0)
+                    {
+                        arr.Add(sum);
+                        sum = 0;
+                    }
+                    else
+                    {
+                        if (carry == 1)
+                            sum = A[i] + carry;
+
+                        if (sum == 10)
+                        {
+                            arr.Add(0);
+                        }
+                        else
+                        {
+                            arr.Add(A[i] + carry);
+                            carry = 0;
+                        }
+                        sum = 0;
+                    }
+                }
+                else
+                {
+                    if (sum != 0)
+                    {
+                        arr.Add(0);
+                        carry = 1;
+                        sum = 0;
+                    }
+
+                }
+            }
+
+            if (carry == 1)
+                arr.Add(arr[0] + 1);
+
+            for (int i = arr.Count - 1; i >= 0; i--)
+            {
+                if (arr[i] == 0)
+                    arr.RemoveAt(i);
+                else
+                    break;
+            }
+            arr.Reverse();
+
+            return arr;
+        }
+
+        //Not completed
+        public static int ImplementStrStr(string haystack, string needle)
+        {
+            int index = -1;
+            int i = 0;
+            int j = 0;
+            int hLen = haystack.Length;
+            int nLen = needle.Length;
+            bool flag = false;
+
+            while(i < hLen && j < nLen)
+            {
+                if(haystack[i] != needle[j])
+                {
+                    i++;
+                    continue;
+                }
+
+                if(!flag)
+                {
+                    index = i;
+                    flag = true;
+                }
+                i++;
+                j++;
+            }
+
+            if (j != nLen)
+                index = -1;
+
+            return index;
+        }
+
+        //Sort an array of 0's, 1's, 2's (Dutch national flag problem)
+        public static void SortArrayof012(int[] arr)
+        {
+            int low = 0;
+            int mid = 0;
+            int high = arr.Length - 1;
+
+            while (mid <= high)
+            {
+                switch(arr[mid])
+                {
+                    case 0:
+                        SwapNumber(ref arr[low++], ref arr[mid++]);
+                        break;
+                    case 1:
+                        mid++;
+                        break;
+                    case 2:
+                        SwapNumber(ref arr[mid], ref arr[high--]);
+                        break;
+                }
+            }
+        }
+
+        private static void SwapNumber(ref int a, ref int b)
+        {
+            int temp = 0;
+            temp = a;
+            a = b;
+            b = temp;
+        }
+
+        //Get Intersection Node in linked list
+        public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            ListNode curr1 = headA, curr2 = headB;
+
+            while (curr1 != curr2)
+            {
+
+                if (curr1 == null)
+                {
+                    curr1 = headB;
+                }
+                else
+                {
+                    curr1 = curr1.next;
+                }
+
+                if (curr2 == null)
+                {
+                    curr2 = headA;
+                }
+                else
+                {
+                    curr2 = curr2.next;
+                }
+            }
+
+            return curr1;
         }
     }
 }
