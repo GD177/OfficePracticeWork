@@ -237,7 +237,7 @@ namespace My_Test_App_For_GoAir
                 }
             }
             arr[j++] = arr[len - 1];
-            char[] b = new Char[j + 1];
+            char[] b = new char[j + 1];
             Array.Copy(arr, 0, b, 0, j + 1);
             Console.WriteLine("The required list :");
             for (j = 0; j < b.Length; j++)
@@ -361,6 +361,7 @@ namespace My_Test_App_For_GoAir
             return charCount;
         }
 
+        //Wrong Solution, taking too much steps to sort, although its a kind of sorting
         public static int minimumSwaps(int[] arr)
         {
             int swapCount = 0;

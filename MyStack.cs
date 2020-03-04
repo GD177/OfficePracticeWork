@@ -92,7 +92,7 @@ namespace My_Test_App_For_GoAir
 
             public string getString { get; }
         }
-        
+
         public class Program
         {
             public static List<string> sortList = new List<string> { "hello", "yes!!", "ok", "hell", "amazing" };
@@ -427,34 +427,34 @@ namespace My_Test_App_For_GoAir
                 //3. {1, 4}, sum = 0
                 //4. {10, 0, 2, -2, -20, 10}, sum = 20
                 //5. { 10, 2, -2, -20, 10}, sum = -10
-                var subarraywdgivensum = subArrayWdGivenSum(new int[] { 10, 2, -2, -20, 10 }, -10);
+                List<int> subarraywdgivensum = subArrayWdGivenSum(new int[] { 10, 2, -2, -20, 10 }, -10);
 
-                var suarraywddic = subArrayWdGivenSumWdDic(new int[] { 3, 4, 7, 2, -3, 1, 4, 2 }, 7);
+                int suarraywddic = subArrayWdGivenSumWdDic(new int[] { 3, 4, 7, 2, -3, 1, 4, 2 }, 7);
 
-                var nextGreaterElement = NextGreaterElement(new int[] { 4, 1, 2 }, new int[] { 1, 3, 4, 2 });
+                int[] nextGreaterElement = NextGreaterElement(new int[] { 4, 1, 2 }, new int[] { 1, 3, 4, 2 });
 
                 SortDictionayExample();
 
-                var listArrangePoints = new List<KeyValuePair<int, int>>();
-                var p1 = new KeyValuePair<int, int>(2, 5);
-                var p2 = new KeyValuePair<int, int>(3, 6);
-                var p3 = new KeyValuePair<int, int>(1, 2);
-                var p4 = new KeyValuePair<int, int>(3, 5);
-                var p5 = new KeyValuePair<int, int>(5, 1);
+                List<KeyValuePair<int, int>> listArrangePoints = new List<KeyValuePair<int, int>>();
+                KeyValuePair<int, int> p1 = new KeyValuePair<int, int>(2, 5);
+                KeyValuePair<int, int> p2 = new KeyValuePair<int, int>(3, 6);
+                KeyValuePair<int, int> p3 = new KeyValuePair<int, int>(1, 2);
+                KeyValuePair<int, int> p4 = new KeyValuePair<int, int>(3, 5);
+                KeyValuePair<int, int> p5 = new KeyValuePair<int, int>(5, 1);
                 listArrangePoints.Add(p1);
                 listArrangePoints.Add(p2);
                 listArrangePoints.Add(p3);
                 listArrangePoints.Add(p4);
                 listArrangePoints.Add(p5);
-                
+
                 ArrangePoints(listArrangePoints);
 
-                var plusOneans = plusOne(new List<int> { 0, 0, 4, 4, 6, 0, 9, 6, 5, 1 });
+                List<int> plusOneans = plusOne(new List<int> { 0, 0, 4, 4, 6, 0, 9, 6, 5, 1 });
 
                 //Test strings -> hello , ll
                 //helo , ll
                 //mississippi , issip
-                var StrStrAns = ImplementStrStr("mississippi", "issip");
+                int StrStrAns = ImplementStrStr("mississippi", "issip");
 
                 SortArrayof012(new int[] { 0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1 });
 
@@ -488,11 +488,21 @@ namespace My_Test_App_For_GoAir
                         }
                     }
                 };
-                var nodeans = GetIntersectionNode(nodeA, nodeB);
+                ListNode nodeans = GetIntersectionNode(nodeA, nodeB);
+
+                //WallAndGate LeetCode problem
+                WallAndGate();
+
+                string max = "7599";
+                string strToDo = "7599";
+                char[] strToDoArr = strToDo.ToCharArray();
+                char[] maxArr = max.ToCharArray();
+
+                FindMaxNumberAfterSwap(strToDoArr, 2, maxArr);
 
                 Console.ReadKey();
             }
-            
+
             private static int CompareLength(string left, string right)
             {
                 string leftString = left;
@@ -517,15 +527,15 @@ namespace My_Test_App_For_GoAir
         {
             BoxEqualityComparer boxEqC = new BoxEqualityComparer();
 
-            var boxes = new Dictionary<Box, string>(boxEqC);
+            Dictionary<Box, string> boxes = new Dictionary<Box, string>(boxEqC);
 
-            var redBox = new Box(4, 3, 4);
+            Box redBox = new Box(4, 3, 4);
             SortedDictionaryExample.AddBox(boxes, redBox, "red");
 
-            var blueBox = new Box(4, 3, 4);
+            Box blueBox = new Box(4, 3, 4);
             SortedDictionaryExample.AddBox(boxes, blueBox, "blue");
 
-            var greenBox = new Box(3, 4, 3);
+            Box greenBox = new Box(3, 4, 3);
             SortedDictionaryExample.AddBox(boxes, greenBox, "green");
             Console.WriteLine();
 
@@ -1339,17 +1349,21 @@ namespace My_Test_App_For_GoAir
                 result[index++] = url.Key;
             }
 
-            var myList = new List<KeyValuePair<string, int>>();
+            List<KeyValuePair<string, int>> myList = new List<KeyValuePair<string, int>>();
 
-            foreach (var pair in map)
-                myList.Add(new KeyValuePair<string, int> ( pair.Key, pair.Value ));
+            foreach (KeyValuePair<string, int> pair in map)
+            {
+                myList.Add(new KeyValuePair<string, int>(pair.Key, pair.Value));
+            }
 
             myList.Sort(
                 delegate (KeyValuePair<string, int> pair1,
                 KeyValuePair<string, int> pair2)
                 {
-                    if(pair1.Value == pair2.Value)
+                    if (pair1.Value == pair2.Value)
+                    {
                         return pair1.Key.CompareTo(pair2.Key);
+                    }
 
                     return pair2.Value - pair1.Value;// this will do decreasing order
                     //return pair1.Value - pair2.Value;// this will do increasing order
@@ -1441,6 +1455,7 @@ namespace My_Test_App_For_GoAir
             int row = matrix.GetLength(0);
             int col = matrix.GetLength(1);
 
+            Console.WriteLine("Original Array");
             for (int r = 0; r < row; r++)
             {
                 for (int c = 0; c < col; c++)
@@ -1449,9 +1464,9 @@ namespace My_Test_App_For_GoAir
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine();
+            Console.WriteLine("");
 
-            //Doing Transpose 
+            //Doing 1st Transpose 
             for (int r = 0; r < row; r++)
             {
                 for (int c = r + 1; c < col; c++)
@@ -1462,6 +1477,9 @@ namespace My_Test_App_For_GoAir
                 }
             }
 
+            Console.WriteLine("");
+            Console.WriteLine("After 1st Transpose");
+
             for (int r = 0; r < row; r++)
             {
                 for (int c = 0; c < col; c++)
@@ -1470,7 +1488,34 @@ namespace My_Test_App_For_GoAir
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine();
+            Console.WriteLine("End 1st Transpose");
+
+            //Doing 2nd Transpose
+            //for (int rowNo = 0; rowNo < row; rowNo++)
+            //{
+            //    int r = rowNo, c = rowNo;
+            //    while(r < row - 1 && c < col - 1)
+            //    {
+            //        int temp = matrix[r, c + 1];
+            //        matrix[r, c + 1] = matrix[r + 1, c];
+            //        matrix[r + 1, c] = temp;
+            //        r++;c++;
+            //    }
+            //}
+
+            //Console.WriteLine("");
+            //Console.WriteLine("After 2nd Transpose");
+
+            //for (int r = 0; r < row; r++)
+            //{
+            //    for (int c = 0; c < col; c++)
+            //    {
+            //        Console.Write($"{matrix[r, c]} ");
+            //    }
+            //    Console.WriteLine();
+            //}
+            //Console.WriteLine("End 2nd Transpose");
+            Console.WriteLine("");
 
             //Rotating matrix 90 ^
             for (int r = 0; r < row; r++)
@@ -1528,7 +1573,7 @@ namespace My_Test_App_For_GoAir
 
                 for (int r = k; r < m; r++)
                 {
-                    Console.Write(matrix[r, n-1]);
+                    Console.Write(matrix[r, n - 1]);
                 }
                 n--;
                 Console.WriteLine();
@@ -1572,7 +1617,7 @@ namespace My_Test_App_For_GoAir
                 k++;
                 Console.WriteLine();
 
-                for (int c = n-1; c >=0; c--)
+                for (int c = n - 1; c >= 0; c--)
                 {
                     Console.Write(matrix[k, c]);
                 }
@@ -1589,11 +1634,11 @@ namespace My_Test_App_For_GoAir
             int currSum = 0;// arr[0];
             int i = 0;
 
-            for(int j = 0; j < arr.Length; j++)
+            for (int j = 0; j < arr.Length; j++)
             {
                 currSum += arr[j];
 
-                while(currSum > sum && i < j)
+                while (currSum > sum && i < j)
                 {
                     currSum -= arr[i];
                     i++;
@@ -1613,9 +1658,9 @@ namespace My_Test_App_For_GoAir
         public static int subArrayWdGivenSumWdDic(int[] arr, int sum)
         {
             int count = 0;
-            var map = new Dictionary<int, int>();
+            Dictionary<int, int> map = new Dictionary<int, int>();
             int currSum = 0;
-            map.Add(0,1);
+            map.Add(0, 1);
 
             for (int i = 0; i < arr.Length; i++)
             {
@@ -1625,12 +1670,18 @@ namespace My_Test_App_For_GoAir
                 //    count++;
 
                 if (map.ContainsKey(currSum - sum))
+                {
                     count += map[currSum - sum];
+                }
 
                 if (map.ContainsKey(currSum))
+                {
                     map[currSum] += 1;
+                }
                 else
+                {
                     map[currSum] = 1;
+                }
             }
 
             return count;
@@ -1645,10 +1696,14 @@ namespace My_Test_App_For_GoAir
             {
                 int j = i;
                 while (j < nums2.Length && nums1[i] >= nums2[j])
+                {
                     j++;
+                }
 
                 if (j == nums2.Length)
+                {
                     ans.Add(-1);
+                }
                 else
                 {
                     ans.Add(nums2[j]);
@@ -1661,17 +1716,19 @@ namespace My_Test_App_For_GoAir
         //Arrange points Hacker Earth
         public static List<KeyValuePair<int, int>> ArrangePoints(List<KeyValuePair<int, int>> list)
         {
-            var finalans = new List<KeyValuePair<int, int>>();
+            List<KeyValuePair<int, int>> finalans = new List<KeyValuePair<int, int>>();
 
             list.Sort(delegate (KeyValuePair<int, int> pair1, KeyValuePair<int, int> pair2)
             {
                 if (pair1.Key == pair2.Key)
+                {
                     return pair2.Value - pair1.Value;
+                }
 
                 return pair1.Key - pair2.Key;
             });
 
-            foreach (var item in list)
+            foreach (KeyValuePair<int, int> item in list)
             {
                 Console.WriteLine(item.Key + " " + item.Value);
             }
@@ -1712,11 +1769,13 @@ namespace My_Test_App_For_GoAir
         {
             int carry = 0;
             int sum = 0;
-            var arr = new List<int>();
+            List<int> arr = new List<int>();
             for (int i = A.Count - 1; i >= 0; i--)
             {
                 if (i == A.Count - 1)
+                {
                     sum = A[i] + 1;
+                }
 
                 if (sum < 10)
                 {
@@ -1728,7 +1787,9 @@ namespace My_Test_App_For_GoAir
                     else
                     {
                         if (carry == 1)
+                        {
                             sum = A[i] + carry;
+                        }
 
                         if (sum == 10)
                         {
@@ -1755,14 +1816,20 @@ namespace My_Test_App_For_GoAir
             }
 
             if (carry == 1)
+            {
                 arr.Add(arr[0] + 1);
+            }
 
             for (int i = arr.Count - 1; i >= 0; i--)
             {
                 if (arr[i] == 0)
+                {
                     arr.RemoveAt(i);
+                }
                 else
+                {
                     break;
+                }
             }
             arr.Reverse();
 
@@ -1779,15 +1846,15 @@ namespace My_Test_App_For_GoAir
             int nLen = needle.Length;
             bool flag = false;
 
-            while(i < hLen && j < nLen)
+            while (i < hLen && j < nLen)
             {
-                if(haystack[i] != needle[j])
+                if (haystack[i] != needle[j])
                 {
                     i++;
                     continue;
                 }
 
-                if(!flag)
+                if (!flag)
                 {
                     index = i;
                     flag = true;
@@ -1797,7 +1864,9 @@ namespace My_Test_App_For_GoAir
             }
 
             if (j != nLen)
+            {
                 index = -1;
+            }
 
             return index;
         }
@@ -1811,16 +1880,18 @@ namespace My_Test_App_For_GoAir
 
             while (mid <= high)
             {
-                switch(arr[mid])
+                switch (arr[mid])
                 {
                     case 0:
-                        SwapNumber(ref arr[low++], ref arr[mid++]);
+                        //SwapNumber(ref arr[low++], ref arr[mid++]);
+                        SwapClass.Swap(ref arr[low++], ref arr[mid++]);
                         break;
                     case 1:
                         mid++;
                         break;
                     case 2:
-                        SwapNumber(ref arr[mid], ref arr[high--]);
+                        //SwapNumber(ref arr[mid], ref arr[high--]);
+                        SwapClass.Swap(ref arr[mid], ref arr[high--]);
                         break;
                 }
             }
@@ -1862,6 +1933,69 @@ namespace My_Test_App_For_GoAir
             }
 
             return curr1;
+        }
+
+        //Wall And Gate
+        public static void WallAndGate()
+        {
+            int[][] rooms = { new int[] {int.MaxValue, -1, 0, int.MaxValue },
+                              new int[] {int.MaxValue, int.MaxValue, int.MaxValue, -1 },
+                              new int[] {int.MaxValue, -1,int.MaxValue, -1 },
+                              new int[] {0, -1, int.MaxValue, int.MaxValue }
+                            };
+            for(int i = 0; i < rooms.Length; i++)
+            {
+                for(int j = 0; j < rooms[0].Length; j++)
+                {
+                    if (rooms[i][j] == 0)
+                        dfsForWallsAndGates(i, j, rooms, 0);
+                }
+            }
+        }
+
+        private static void dfsForWallsAndGates(int row, int col, int[][] rooms, int dist)
+        {
+            if (row < 0 || row >= rooms.Length || col < 0 || col >= rooms[0].Length || dist > rooms[row][col] || rooms[row][col] == -1)
+                return;
+
+            rooms[row][col] = dist;
+            dfsForWallsAndGates(row + 1, col, rooms, dist + 1);
+            dfsForWallsAndGates(row - 1, col, rooms, dist + 1);
+            dfsForWallsAndGates(row, col + 1, rooms, dist + 1);
+            dfsForWallsAndGates(row, col - 1, rooms, dist + 1);
+        }
+
+        //Find max number possible by doing at-most k swaps -> not completed
+        public static void FindMaxNumberAfterSwap(char[] str, int k, char[] max)
+        {
+            if (k == 0)
+                return;
+
+            int n = str.Length;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (str[i] < str[j])
+                    {
+                        //var a = str[i];
+                        //var b = str[j];
+                        SwapClass.Swap(ref str[i], ref str[j]);
+
+                        var newStr = new string(str);
+                        var newMax = new string(max);
+
+                        if (newStr.CompareTo(newMax) > 0)
+                            max = str;
+
+                        FindMaxNumberAfterSwap(str, k - 1, max);
+
+                        SwapClass.Swap(ref str[j], ref str[i]);
+                    }
+                }
+            }
+
         }
     }
 }
