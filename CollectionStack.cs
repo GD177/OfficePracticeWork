@@ -85,6 +85,21 @@ namespace My_Test_App_For_GoAir
                 Console.WriteLine("Element : " + freq.Key + "| " + "Count is : "+ freq.Value);
             }
 
+            for (int i = 0; i < countArray.Count; i ++)
+            {
+                Console.WriteLine($"Key - {countArray.Keys.ElementAt(i)}, Values - {countArray.Values.ElementAt(i)}");
+            }
+
+            //Cannot do like this
+            //for (int i = 0; i < countArray.Count; i++)
+            //{
+            //    //var pair = countArray[i];
+            //    //Console.WriteLine($"Using Key - {pair.}, Values - {countArray.Values.ElementAt(i)}");
+            //}
+
+            List<int> ll = new List<int>();
+            int[] ar = ll.ToArray();
+
             return;
         }
 
@@ -391,6 +406,35 @@ namespace My_Test_App_For_GoAir
             }
 
             return swapCount;
+        }
+
+    }
+
+    public class MyGeneric
+    {
+        //private T var;
+        //public MyGeneric<T>(T value)
+        //{
+        //    var = value;
+        //}
+
+        //public T GetValue<T>()
+        //{
+        //    //return var;
+        //}
+
+        public T ComputeMet<T>(T a, T b)
+        {
+            dynamic a1 = a;
+            dynamic b1 = b;
+            return a1 + b1;
+        }
+
+        public static T ComputeMet1<T>(T a, T b)
+        {
+            dynamic a1 = a;
+            dynamic b1 = b;
+            return a1 + b1;
         }
     }
 }

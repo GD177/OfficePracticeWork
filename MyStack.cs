@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace My_Test_App_For_GoAir
@@ -431,7 +432,7 @@ namespace My_Test_App_For_GoAir
 
                 int suarraywddic = subArrayWdGivenSumWdDic(new int[] { 3, 4, 7, 2, -3, 1, 4, 2 }, 7);
 
-                int[] nextGreaterElement = NextGreaterElement(new int[] { 4, 1, 2 }, new int[] { 1, 3, 4, 2 });
+                //int[] nextGreaterElement = NextGreaterElement(new int[] { 4, 1, 2 }, new int[] { 1, 3, 4, 2 });
 
                 SortDictionayExample();
 
@@ -499,6 +500,40 @@ namespace My_Test_App_For_GoAir
                 char[] maxArr = max.ToCharArray();
 
                 FindMaxNumberAfterSwap(strToDoArr, 2, maxArr);
+
+                IsPalindrome("ebeda");
+
+                int numberofappends = NumberOfAppends("abede", out string ans);
+
+                GetPalindrome("mdaam");
+
+                int[] nextGreaterElement = NextGreaterElement(new int[] { 4, 1, 2 }, new int[] { 1, 3, 4, 2 });
+                var res = NextGreaterElements2(new int[] { 1, 2, 1 });
+
+                Console.WriteLine();
+                var permuteAns = Permutations(new int[] { 1, 2, 3 });
+
+                TreeNode n = new TreeNode(0);
+                n.left = new TreeNode(-10);
+                n.right = new TreeNode(10);
+
+                TreeNode n1 = new TreeNode(5);
+                n1.left = new TreeNode(1);
+                n1.left.left = new TreeNode(0);
+                n1.left.right = new TreeNode(0);
+                n1.right = new TreeNode(7);
+                var twosumbstans = TwoSumBSTs(n,n1, 17);
+
+                ConvertOpposite(new StringBuilder("geeksForgEeks"));
+
+                Console.WriteLine();
+
+                //MyGeneric<int> obj = new MyGeneric<int>(2);
+                MyGeneric obj = new MyGeneric();
+                //Console.WriteLine(obj.GetValue());
+                //MyGeneric.ComputeMet1();
+                Console.WriteLine(obj.ComputeMet(1, 2));
+                Console.WriteLine(obj.ComputeMet("1", "2"));
 
                 Console.ReadKey();
             }
@@ -1688,7 +1723,7 @@ namespace My_Test_App_For_GoAir
         }
 
         //NextGreaterElement -> Not complete
-        public static int[] NextGreaterElement(int[] nums1, int[] nums2)
+        public static int[] NextGreaterElementOld(int[] nums1, int[] nums2)
         {
             List<int> ans = new List<int>();
 
@@ -1836,7 +1871,7 @@ namespace My_Test_App_For_GoAir
             return arr;
         }
 
-        //Not completed
+        //Implement StrStr -> Not completed
         public static int ImplementStrStr(string haystack, string needle)
         {
             int index = -1;
@@ -1965,7 +2000,7 @@ namespace My_Test_App_For_GoAir
             dfsForWallsAndGates(row, col - 1, rooms, dist + 1);
         }
 
-        //Find max number possible by doing at-most k swaps -> not completed
+        //Find max number possible by doing at-most k swaps -> not completed (Airtel HackerEarth)
         public static void FindMaxNumberAfterSwap(char[] str, int k, char[] max)
         {
             if (k == 0)
@@ -1994,6 +2029,307 @@ namespace My_Test_App_For_GoAir
                         SwapClass.Swap(ref str[j], ref str[i]);
                     }
                 }
+            }
+
+        }
+
+        //Check String is palindrome or not
+        public static bool IsPalindrome(string str)
+        {
+            int i = 0;
+            int j = str.Length - 1;
+            int len = str.Length - 1;
+
+            if (j == 1)
+                return true;
+                //Console.WriteLine("Yes string is Palindrome");
+
+            while (i < j)
+            {
+                if (str[i] != str[j])
+                {
+                    //Console.WriteLine("No string is not Palindrome");
+                    return false;
+                }
+                i++;
+                j--;
+            }
+
+            return true;
+            //char ptr1 = str[0];
+            //char ptr2 = str[len - 1];
+
+            //while (ptr2 > ptr1)
+            //{
+            //    if (ptr1 != ptr2)
+            //    {
+            //        Console.WriteLine("No string is not Palindrome");
+            //        return;
+            //    }
+            //    ptr1++;
+            //    ptr2--;
+            //}
+
+            //Console.WriteLine("Yes string is Palindrome");
+        }
+
+        //Minimum number of appends required to make string palindrome and the length of string after making it palindromic
+        public static int NumberOfAppends(string str, out string ans)
+        {
+            if (IsPalindrome(str))
+            {
+                ans = str;
+                return 0;
+            }
+
+            char c = str[0];
+            str = str.Substring(1);
+
+            int val = 1 + NumberOfAppends(str, out ans);
+            ans = c + ans + c;
+            return val;
+            //return 1 + NumberOfAppends(str, out ans);
+        }
+
+        //Rearrange characters to form palindrome if possible
+        public static void GetPalindrome(string str)
+        {
+            Dictionary<char, int> map = new Dictionary<char, int>();
+
+            for(int i = 0; i < str.Length; i++)
+            {
+                if (map.ContainsKey(str[i]))
+                    map[str[i]]++;
+                else
+                    map[str[i]] = 1;
+            }
+            
+            char firstOddChar = '\0';
+            int oddCount = 0;
+            
+            foreach(var item in map)
+            {
+                if ((item.Value & 1) == 1)
+                {
+                    oddCount++;
+                    firstOddChar = item.Key;
+                }
+
+            }
+
+            if(oddCount > 1 || (oddCount == 1 && str.Length % 2 == 0))
+            {
+                Console.WriteLine("String cannot be made palindromic");
+                return;
+            }
+
+            string firstHalf = "";
+            string secondHalf = "";
+
+            //foreach (var item in map)
+            //{
+            //    string s = "";
+            //    s.PadLeft(s.Length + (item.Value / 2), item.Key);
+
+            //    firstHalf = s + firstHalf;
+            //    secondHalf = secondHalf + s;
+            //}
+
+            for (int i = 0; i < map.Count; i++)
+            {
+                string s = "";
+                var newS = s.PadLeft(map.Values.ElementAt(i) / 2, map.Keys.ElementAt(i));
+                firstHalf = newS + firstHalf;
+                secondHalf = secondHalf + newS;
+            }
+
+            string final = "";
+            if (oddCount == 1)
+                final = firstHalf + firstOddChar.ToString() + secondHalf;
+            else
+                final = firstHalf + secondHalf;
+
+            return;
+        }
+
+        //NextGreaterElement
+        public static int[] NextGreaterElement(int[] nums1, int[] nums2)
+        {
+            //HashSet<int> set = new HashSet<int>(nums1);
+            List<int> ans = new List<int>();
+
+            List<int> numList = new List<int>(nums1);
+
+            int[] res = new int[nums1.Length];
+            int j = nums1.Length - 1;
+
+            Stack<int> s = new Stack<int>();
+
+            for(int i = nums2.Length - 1; i >= 0; i--)
+            {
+                if (numList.Contains(nums2[i]))
+                {
+                    while (s.Count != 0 && nums2[i] >= s.Peek())
+                        s.Pop();
+
+                    res[numList.IndexOf(nums2[i])] = s.Count == 0 ? -1 : s.Peek();
+                    s.Push(nums2[i]);
+                }
+                else
+                    s.Push(nums2[i]);
+            }
+
+            s.Clear();
+
+            return res;
+        }
+
+        //NextGreaterElements2 -> Not Working
+        public static int[] NextGreaterElements2(int[] nums)
+        {
+            int[] res = new int[nums.Length];
+
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                for (int j = i + 1; ; j++)
+                {
+                    j %= nums.Length;
+                    if (nums[i] <= nums[j] && j != i)
+                    {
+                        res[i] = nums[j];
+                        break;
+                    }
+                    if (j == i)
+                    {
+                        res[i] = -1;
+                        break;
+                    }
+                }
+            }
+
+            return res;
+        }
+
+        //Permutation of array
+        public static IList<IList<int>> Permutations(int[] nums)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+            bool[] qb = new bool[nums.Length];
+            var subList = new List<int>();
+            PermuteHelper(nums, 0, res, qb, "", subList);
+            return res;
+        }
+
+        public static  void PermuteHelper(int[] nums, int currIndex, IList<IList<int>> res, bool[] qb, string ans, List<int> subList)
+        {
+            if (subList.Count == nums.Length)
+            {
+                var n = new List<int>(subList);
+                res.Add(n);
+                Console.WriteLine(ans);
+                return;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if(qb[i] == false)
+                {
+                    qb[i] = true;
+                    subList.Add(nums[i]);
+                    PermuteHelper(nums, i + 1, res, qb, ans + nums[i], subList);
+                    subList.Remove(nums[i]);
+                    qb[i] = false;
+                }
+            }
+        }
+
+        public string RemoveDuplicates(string S)
+        {
+            Dictionary<char, int> map = new Dictionary<char, int>();
+
+            for (int i = 0; i < S.Length; i++)
+            {
+                if (map.ContainsKey(S[i]))
+                    map[S[i]]++;
+                else
+                    map[S[i]] = 1;
+            }
+
+            string ans = "";
+            for (int i = 0; i < S.Length; i++)
+            {
+                if (map.ContainsKey(S[i]) && map[S[i]] == 2)
+                    map.Remove(S[i]);
+            }
+
+            foreach (var item in map)
+            {
+                ans += item.Key;
+            }
+
+            List<int> ll = new List<int>();
+            ll.Sort();
+            ll.RemoveAt(0);
+            return ans;
+        }
+
+        //Find pair from two trees with given target
+        public static bool TwoSumBSTs(TreeNode root1, TreeNode root2, int target)
+        {
+            HashSet<int> map = new HashSet<int>();
+            helperInorder(root1, map);
+
+            return sumHelper(root2, map, target);
+        }
+
+        public static bool sumHelper(TreeNode root, HashSet<int> map, int target)
+        {
+            if (root == null)
+                return false;
+
+            if (map.Contains(target - root.val))
+                return true;
+
+            return sumHelper(root.left, map, target) || sumHelper(root.right, map, target);
+        }
+
+        public static void helperInorder(TreeNode root, HashSet<int> map)
+        {
+            if (root == null)
+                return;
+
+            //HashSet<int> set = new HashSet<int>();
+            //set.Remove(1);
+
+            map.Add(root.val);
+            helperInorder(root.left, map);
+            helperInorder(root.right, map);
+        }
+
+        //Convert characters of a string to opposite case i.e if it is lower case change to upper case and vice versa
+        public static void ConvertOpposite(StringBuilder str)
+        {
+            Console.WriteLine($"Before Changing - {str}");
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if(str[i] >= 'a' && str[i] <= 'z')
+                {
+                    str[i] = (char)(str[i] - 32);
+                }
+                else
+                {
+                    str[i] = (char)(str[i] + 32);
+                }
+            }
+
+            Console.WriteLine($"After Changing - {str}");
+
+            string number = "1234";
+
+            for(int i = 0; i < number.Length; i++)
+            {
+                Console.WriteLine(number[i] - '0');
             }
 
         }
